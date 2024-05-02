@@ -1,172 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+    <head>
+        <title>Integration methods</title>
+    </head>
+    <body>
+        <script src="./script.js" defer></script>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metodi di integrazione</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4202138862699865" crossorigin="anonymous"></script>
-    <link rel="icon" type="image/x-icon" href="./img/lollo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
-    <style>
-        body {
-            font-family: "Comic Sans MS", sans-serif;
-            background-image: url("./img/sfondo.jpg");
-            background-color: #f0f0f0;
-        }
-        .container {
-            background-color: #ffffff;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-            margin-top: 30px;
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        .card {
-            background-color: #fff;
-            border-radius: 6px;
-            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
-            margin-bottom: 15px;
-        }
-        .card-content {
-            padding: 15px;
-        }
+        <h1>Numerical Integration Methods</h1>
+        <form>
+            <label for="fx">Function to integrate: </label>
+                <input required id="fx" type="text">
 
-        label {
-            font-weight: bold;
-            color: #555;
-        }
-        .img{
-            border-radius: 5px;
-            width: 100%; 
-            height: auto; 
-        }
-        input[type="text"],
-        input[type="number"],
-        select {
-            width: 100%;
-            padding: 5px;
-            margin: 2px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        input[type="button"] {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            background-color: #24d3eb;
+            <select required id="rule">
+                <option selected disabled value="null">Select a method</option>
+                <option value="rect">Rectangles rule</option>
+                <option value="trap">Trapezoidal rule</option>
+                <option value="parab">Parables rule</option>
+            </select>
 
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        input[type="button"]:hover {
-            background-color: #2dbfd3;
-        }
+            <br>
 
-        p {
-            margin: 10px 0;
-        }
+            <label for="a">Limit a: </label>
+                <input required id="a" type="number">
+            <label for="b">Limit b: </label>
+                <input required id="b" type="number">
 
-    </style>
-</head>
+            <br>
 
-<body>
-    <div class="container">
-        <h1>Metodi di integrazione</h1>
-        <div class="row">
-            <div class="six columns">
-                <form>
-                    <div class="card">
-                        <div class="card-content">
-                            <label for="user_function">Funzione da integrare</label>
-                            <input type="text" id="user_function" placeholder="Scrivi la funzione" required>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <label for="int_method">Scegli il metodo di integrazione</label>
-                            <select id="int_method" name="method" onchange="description()">
-                                <option disabled selected>seleziona il metodo</option>
-                                <option value="parables">Metodo delle parabole</option>
-                                <option value="trapezius">Metodo dei trapezi</option>
-                                <option value="rectangles">Metodo dei rettangoli</option>
-                            </select>
-                        </div>
-                    </div>
-                
-                    <div class="row">
-                        <div class="six columns">
-                            <div class="card">
-                                <div class="card-content">
-                                    <label for="extremeA">Estremo A[🡐]:</label>
-                                    <input type="number" id="extremeA" value="0" onchange="exB()">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="six columns">
-                            <div class="card">
-                                <div class="card-content">
-                                    <label for="extremeB">Estremo B[🡒]:</label>
-                                    <input type="number" min="exB()" id="extremeB" value="1">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <label for="intervals">Num. intervalli</label>
-                            <input type="number" min="3" id="intervals" value="3">
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <label for="approx">N. cifre decimali Risultato</label>
-                            <select id="approx" name="approx" onchange="change_approx()">
-                                <option disabled selected>seleziona il numero</option>
-                                <option value="3">3</option>
-                                <option value="8" selected>8</option>
-                                <option value="13">13</option>
-                            </select>
-                        </div>
-                    </div>
-                    <input type="button" onclick="calculate()" value="Calcola">
-                </form>
-            </div>
-            <div class="six columns">
-                <div class="card">
-                    <div class="card-content">
-                        <p id="description">
-                            <label for="output">Metodo:</label>
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <p id="parableCase"></p>
-                </div>
-                <div class="card">
-                    <div class="card-content">
-                        <p id="output">
-                            <label for="output">Risultato:</label>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <p id="imgOfCode">
-            <label for="imgOfCode">Codice del metodo [seleziona un metodo]</label>
-        </p>
-    </div>
-    <script src="js/script.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.4/math.min.js" defer></script>
-</body>
+            <label for="int">Number of intervals: </label>
+                <input required id="int" type="number" min="1">
+            <label for="dec">Decimal precision: </label>
+                <input required id="dec" type="number" min="1" max="17">
 
+            <br>
+
+            <button type="submit" onclick="calculate()">Calculate</button>
+        </form>
+            <p id="result"></p>
+        
+    </body>
 </html>
