@@ -2,42 +2,49 @@
 <html>
     <head>
         <title>Integration methods</title>
+        <link rel="stylesheet" href="myStyle.css">
     </head>
     <body>
         <script src="./script.js" defer></script>
-        <script></script>
 
-        <h1>Numerical Integration Methods</h1>
-        <form onsubmit="return false">
-            <label for="fx">Function to integrate: </label>
-                <input required id="fx" type="text">
-
-            <select required id="rule" onchange="checkInt()">
-                <option selected disabled value="">Select a method</option>
-                <option value="rect">Rectangles rule</option>
-                <option value="trap">Trapezoidal rule</option>
-                <option value="parab">Parables rule</option>
-            </select>
-
-            <br>
-
-            <label for="a">Limit a: </label>
-                <input required id="a" type="number" onblur="checkLimits()">
-            <label for="b">Limit b: </label>
-                <input required id="b" type="number" onblur="checkLimits()">
-
-            <br>
-
-            <label id="intLabel" for="int">Number of intervals: </label>
-                <input required id="int" type="number" min="1" onblur="checkInt()">
-            <label for="dec">Decimal precision: </label>
-                <input required id="dec" type="number" min="1" max="17" value="3">
-
-            <br>
-
-            <button type="submit" onclick="calculate()">Calculate</button>
-        </form>
+        <div class="container">
+            <h1>Numerical Integration Methods</h1>
+            <form onsubmit="return false">
+                <div class="input-group">
+                    <label for="fx">Function to integrate:</label>
+                    <input required id="fx" type="text">
+                </div>
+                <div class="input-group">
+                    <label for="rule">Integration method:</label>
+                    <select required id="rule" onchange="checkInt()">
+                        <option selected disabled value="">Select a method</option>
+                        <option value="rect">Rectangles rule</option>
+                        <option value="trap">Trapezoidal rule</option>
+                        <option value="parab">Parables rule</option>
+                    </select>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="a">Limit a:</label>
+                        <input required id="a" type="number" onblur="checkLimits()">
+                    </div>
+                    <div class="input-group">
+                        <label for="b">Limit b:</label>
+                        <input required id="b" type="number" onblur="checkLimits()">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label id="intLabel" for="int">Number of intervals:</label>
+                    <input required id="int" type="number" min="1" onblur="checkInt()">
+                </div>
+                <div class="input-group">
+                    <label for="dec">Decimal precision:</label>
+                    <input required id="dec" type="number" min="1" max="17" value="3">
+                </div>
+                <button type="submit" onclick="calculate()">Calculate</button>
+            </form>
             <p id="output"></p>
-        
+        </div>
+    
     </body>
 </html>
