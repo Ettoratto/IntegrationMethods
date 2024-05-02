@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Integration methods</title>
-        <link rel="stylesheet" href="myStyle.css">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <script src="./script.js" defer></script>
@@ -33,13 +33,15 @@
                         <input required id="b" type="number" onblur="checkLimits()">
                     </div>
                 </div>
-                <div class="input-group">
-                    <label id="intLabel" for="int">Number of intervals:</label>
-                    <input required id="int" type="number" min="1" onblur="checkInt()">
-                </div>
-                <div class="input-group">
-                    <label for="dec">Decimal precision:</label>
-                    <input required id="dec" type="number" min="1" max="17" value="3">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label id="intLabel" for="int">Number of intervals:</label>
+                        <input required id="int" type="number" min="1" onblur="checkInt()">
+                    </div>
+                    <div class="input-group">
+                        <label for="dec">Decimal precision:</label>
+                        <input required id="dec" type="number" min="1" max="17" value="3">
+                    </div>
                 </div>
                 <button type="submit" onclick="calculate()">Calculate</button>
             </form>

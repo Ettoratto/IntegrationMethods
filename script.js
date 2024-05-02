@@ -1,10 +1,22 @@
 let output = document.getElementById("output")
-let fx = null
+let fx
 let precision = document.getElementById("dec")
+let invalid = false
 
 precision.addEventListener(`focus`, () => precision.select())
 
-const evalUsrFx = x => eval(fx.toLowerCase().replace(/math/gi, "Math"))
+const evalUsrFx = x => {
+
+    if(invalid)
+        return
+
+    try{
+        eval(fx.toLowerCase().replace(/math/gi, "Math"))
+    }catch(error){
+        alert("Invalid function")
+        invalid = true
+    }
+}
 
 const checkLimits = () => {
 
@@ -16,8 +28,11 @@ const checkLimits = () => {
 
 function calculate() {
     
+    invalid = false
+    startTime = performance.now()
+
     fx = document.getElementById("fx")
-    fx.value.replace(/\^/g, '**').replace(/(\d)([a-z])/g, '$1*$2').replace(/\b(sin|cos|tan)\(([^)]+)\)/g, 'Math.$1($2)')
+    fx = fx.value.replace(/\^/g, '**').replace(/(\d)([a-z])/g, '$1*$2').replace(/\b(sin|cos|tan)\(([^)]+)\)/g, 'Math.$1($2)')
 
     a = parseFloat(document.getElementById("a").value)
     b = parseFloat(document.getElementById("b").value)
@@ -37,6 +52,12 @@ function calculate() {
             output.innerHTML = parabRule(dX)
             break
     }
+
+    endTime = performance.now()
+    if(!invalid)
+        output.innerHTML += "| " + String(endTime - startTime).slice(0, 5) + "ms"
+    else    
+        output.innerHTML = ""
 }
 
 function rectRule(dX) {
