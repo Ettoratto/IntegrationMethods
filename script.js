@@ -1,3 +1,6 @@
+/**
+ * Calcola l'integrale utilizzando vari metodi di integrazione numerica.
+ */
 let output = document.getElementById("output")
 let fx
 let precision = document.getElementById("dec")
@@ -5,19 +8,27 @@ let invalid = false
 
 precision.addEventListener(`focus`, () => precision.select())
 
+/**
+ * Valuta la funzione definita dall'utente ad un dato valore di x.
+ * @param {number} x - Il valore di x
+ */
 const evalUsrFx = x => {
 
     if(invalid)
-        return
+        return false
 
     try{
-        eval(fx.toLowerCase().replace(/math/gi, "Math"))
+        return eval(fx.value.toLowerCase().replace(/math/gi, "Math"))
     }catch(error){
         alert("Invalid function")
         invalid = true
+        return false
     }
 }
 
+/**
+ * Controlla se il limite inferiore è maggiore o uguale al limite superiore e, se necessario, regola il limite inferiore.
+ */
 const checkLimits = () => {
 
     a = document.getElementById("a")
@@ -26,13 +37,16 @@ const checkLimits = () => {
         a.value = b.value - 1
 }
 
-function calculate() {
+/**
+ * Calcola l'integrale utilizzando il metodo di integrazione selezionato.
+ */
+function calc() {
     
     invalid = false
     startTime = performance.now()
 
     fx = document.getElementById("fx")
-    fx = fx.value.replace(/\^/g, '**').replace(/(\d)([a-z])/g, '$1*$2').replace(/\b(sin|cos|tan)\(([^)]+)\)/g, 'Math.$1($2)')
+    fx.value.replace(/\^/g, '**').replace(/(\d)([a-z])/g, '$1*$2').replace(/\b(sin|cos|tan)\(([^)]+)\)/g, 'Math.$1($2)')
 
     a = parseFloat(document.getElementById("a").value)
     b = parseFloat(document.getElementById("b").value)
@@ -60,6 +74,11 @@ function calculate() {
         output.innerHTML = ""
 }
 
+/**
+ * Calcola l'integrale utilizzando la regola dei rettangoli.
+ * @param {number} dX - La larghezza di ciascun rettangolo
+ * @returns {string} Il valore integrale calcolato
+ */
 function rectRule(dX) {
     
     let sum = 0 
@@ -72,6 +91,11 @@ function rectRule(dX) {
     return sum.toFixed(precision.value)
 }
 
+/**
+ * Calcola l'integrale utilizzando la regola dei trapezi.
+ * @param {number} dX - La larghezza di ciascun trapezio
+ * @returns {string} Il valore integrale calcolato
+ */
 function trapRule(dX) {
 
     let x = a
@@ -88,6 +112,11 @@ function trapRule(dX) {
     return (sum*0.5*dX).toFixed(precision.value)
 }
 
+/**
+ * Calcola l'integrale utilizzando il metodo delle parabole.
+ * @param {number} dX - La larghezza di ciascun intervallo
+ * @returns {string} Il valore integrale calcolato
+ */
 function parabRule(dX) {
     
     dX = (b - a) / n
@@ -111,6 +140,9 @@ function parabRule(dX) {
     return (val * dX / 3).toFixed(precision.value)
 }
 
+/**
+ * Controlla se il numero di intervalli è pari per il metodo delle parabole e lo modifica se necessario.
+ */
 function checkInt(){
 
     method = document.getElementById("rule").value

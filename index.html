@@ -36,14 +36,14 @@
                 <div class="input-row">
                     <div class="input-group">
                         <label id="intLabel" for="int">Number of intervals:</label>
-                        <input required id="int" type="number" min="1" onblur="checkInt()">
+                        <input required id="int" type="number" min="1" max="999999" onblur="checkInt()" placeholder="1 - 999 999">
                     </div>
                     <div class="input-group">
                         <label for="dec">Decimal precision:</label>
                         <input required id="dec" type="number" min="1" max="17" value="3">
                     </div>
                 </div>
-                <button type="submit" onclick="calculate()">Calculate</button>
+                <button type="submit" onclick="calc()">Evaluate</button>
             </form>
             <p id="output"></p>
         </div>
