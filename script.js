@@ -18,7 +18,7 @@ const evalUsrFx = x => {
         return false
 
     try{
-        return eval(fx.value.toLowerCase().replace(/math/gi, "Math"))
+        return eval(fx.toLowerCase().replace(/math/gi, "Math"))
     }catch(error){
         alert("Invalid function")
         invalid = true
@@ -45,8 +45,8 @@ function calc() {
     invalid = false
     startTime = performance.now()
 
-    fx = document.getElementById("fx")
-    fx.value.replace(/\^/g, '**').replace(/(\d)([a-z])/g, '$1*$2').replace(/\b(sin|cos|tan)\(([^)]+)\)/g, 'Math.$1($2)')
+    fx = document.getElementById("fx").value
+    fx = fx.replace(/\^/g, '**').replace(/(\d)([a-z])/g, '$1*$2').replace(/\b(sin|cos|tan)\(([^)]+)\)/g, 'Math.$1($2)')
 
     a = parseFloat(document.getElementById("a").value)
     b = parseFloat(document.getElementById("b").value)
