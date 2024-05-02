@@ -1,18 +1,24 @@
-const evalUsrFx = x => eval(fx.value.toLowerCase())
-
-const checkLimits = (a, b) => {
-
-    document.getElementById("a").value = 
-}
-
-let fx = document.getElementById("fx")
 let output = document.getElementById("output")
-
+let fx = null
 let precision = document.getElementById("dec")
+
 precision.addEventListener(`focus`, () => precision.select())
+
+const evalUsrFx = x => eval(fx.toLowerCase().replace(/math/gi, "Math"))
+
+const checkLimits = () => {
+
+    a = document.getElementById("a")
+    b = document.getElementById("b")
+    if(a.value >= b.value && b.value != "")
+        a.value = b.value - 1
+}
 
 function calculate() {
     
+    fx = document.getElementById("fx")
+    fx.value.replace(/\^/g, '**').replace(/(\d)([a-z])/g, '$1*$2').replace(/\b(sin|cos|tan)\(([^)]+)\)/g, 'Math.$1($2)')
+
     a = parseFloat(document.getElementById("a").value)
     b = parseFloat(document.getElementById("b").value)
     n = parseFloat(document.getElementById("int").value)
@@ -33,8 +39,6 @@ function calculate() {
     }
 }
 
-
-
 function rectRule(dX) {
     
     let sum = 0 
@@ -46,7 +50,6 @@ function rectRule(dX) {
     }
     return sum.toFixed(precision.value)
 }
-
 
 function trapRule(dX) {
 
