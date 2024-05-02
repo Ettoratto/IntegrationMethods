@@ -7,12 +7,12 @@
         <script src="./script.js" defer></script>
 
         <h1>Numerical Integration Methods</h1>
-        <form>
+        <form onsubmit="return false">
             <label for="fx">Function to integrate: </label>
                 <input required id="fx" type="text">
 
-            <select required id="rule">
-                <option selected disabled value="null">Select a method</option>
+            <select required id="rule" onchange="checkInt()">
+                <option selected disabled value="">Select a method</option>
                 <option value="rect">Rectangles rule</option>
                 <option value="trap">Trapezoidal rule</option>
                 <option value="parab">Parables rule</option>
@@ -21,22 +21,22 @@
             <br>
 
             <label for="a">Limit a: </label>
-                <input required id="a" type="number">
+                <input required id="a" type="number" onblur="checkLimits()">
             <label for="b">Limit b: </label>
-                <input required id="b" type="number">
+                <input required id="b" type="number" onblur="checkLimits()">
 
             <br>
 
-            <label for="int">Number of intervals: </label>
-                <input required id="int" type="number" min="1">
+            <label id="intLabel" for="int">Number of intervals: </label>
+                <input required id="int" type="number" min="1" onblur="checkInt()">
             <label for="dec">Decimal precision: </label>
-                <input required id="dec" type="number" min="1" max="17">
+                <input required id="dec" type="number" min="1" max="17" value="3">
 
             <br>
 
             <button type="submit" onclick="calculate()">Calculate</button>
         </form>
-            <p id="result"></p>
+            <p id="output"></p>
         
     </body>
 </html>

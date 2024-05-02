@@ -1,5 +1,15 @@
+const evalUsrFx = x => eval(fx.value.toLowerCase())
+
+const checkLimits = (a, b) => {
+
+    document.getElementById("a").value = 
+}
+
 let fx = document.getElementById("fx")
-let dX
+let output = document.getElementById("output")
+
+let precision = document.getElementById("dec")
+precision.addEventListener(`focus`, () => precision.select())
 
 function calculate() {
     
@@ -7,89 +17,80 @@ function calculate() {
     b = parseFloat(document.getElementById("b").value)
     n = parseFloat(document.getElementById("int").value)
 
-    if (b <= a) {
-        alert("The limit a must be lower than b")
-        return;
-    }
+    dX = (b - a) / n
+    
 
-    dX = (b - a) / n;
-    let rule = document.getElementById("rule")
-
-    switch (rule.value) {
-        case "rectangles":
-            output.innerHTML = rectRule()
-            break;
-        case "":
-            output.innerHTML = trapRule()
-            break;
-        case "parables":
-            output.innerHTML = parabRule()
-            break;
+    switch (document.getElementById("rule").value) {
+        case "rect":
+            output.innerHTML = rectRule(dX)
+            break
+        case "trap":
+            output.innerHTML = trapRule(dX)
+            break
+        case "parab":
+            output.innerHTML = parabRule(dX)
+            break
     }
 }
 
 
 
-function rectRule() {
-    risultato = 0
-    for (let i = 0; i < n; i++) {
-        let x1 = a + i * dX
-        let x2 = x1 + dX
-        let areaRettangolo = dX * evalUsrFx((x1 + x2) / 2)
-        risultato += areaRettangolo
+function rectRule(dX) {
+    
+    let sum = 0 
+    for (i = 0; i < n; i++) {
+        x1 = a + i*dX
+        x2 = x1 + dX
+        area = dX*evalUsrFx((x1 + x2)/2)
+        sum += area
     }
-    return "<label>Risultato:<br></label><h2>" + risultato.toFixed(approx) + "</h2>"
+    return sum.toFixed(precision.value)
 }
 
 
-function trapRule() {
-    risultato = 0
+function trapRule(dX) {
+
     let x = a
     let fa = evalUsrFx(x)
     let fxi = 0
     let sum = 0
+
     for (i = 0; i < n; i++) {
         x = x + dX
         fxi = evalUsrFx(x)
         sum += fa + fxi
         fa = fxi
     }
-    risultato = sum * 0.5 * dX
-    return "<label>Risultato:<br></label><h2>" + risultato.toFixed(approx) + "</h2>"
+    return (sum*0.5*dX).toFixed(precision.value)
 }
 
-function parabRule() {
-    risultato = 0
-    if (!(n % 2 == 0)) { 
-        n++
-        parableCase.innerHTML = "Per questo metodo è necessario avere un numero pari di intervalli, pertanto è stato aumentato di 1"
-    } else 
-        parableCase.innerHTML = ""
+function parabRule(dX) {
     
-
     dX = (b - a) / n
-    let nDis = n - 1
-    let nPar = nDis - 1
-    let val = 0
+    odd = n - 1
+    even = odd - 1
+    val = 0
     
-    let sommaPunti = 0
-    for (i = 1; i <= nDis; i += 2) {
+    let sum = 0
+    for (i = 1; i <= odd; i += 2) {
         x = a + i * dX
-        sommaPunti += evalUsrFx(x)
+        sum += evalUsrFx(x)
     }
-    val = sommaPunti * 4
+    val = sum * 4
     
-    sommaPunti = 0
-    for (i = 2; i <= nPar; i += 2) {
+    sum = 0
+    for (i = 2; i <= even; i += 2) {
         x = a + i * dX
-        sommaPunti += evalUsrFx(x)
+        sum += evalUsrFx(x)
     }
-    val += 2 * sommaPunti + evalUsrFx(a) + evalUsrFx(b)
-    risultato = val * dX / 3
-    return "<label>Risultato:<br></label><h2>" + risultato.toFixed(approx) + "</h2>"
+    val += 2 * sum + evalUsrFx(a) + evalUsrFx(b)
+    return (val * dX / 3).toFixed(precision.value)
 }
 
+function checkInt(){
 
-function evalUsrFx() {
-    return eval(fx.value.toLowerCase())
+    method = document.getElementById("rule").value
+    let int = document.getElementById("int")
+    if((int.value % 2 != 0) && method == "parab")
+        int.value++
 }
