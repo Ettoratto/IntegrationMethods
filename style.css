@@ -47,7 +47,7 @@ select {
 }
 .input-group {
     display: flex;
-    flex-direction: column; /* Cambiato da "row" a "columnn" */
+    flex-direction: column; /* Cambiatoo da "row" a "columnn" */
     margin-bottom: 10px; /* Aggiunto margine inferiore per separare gli input */
     text-align: center;
 }
