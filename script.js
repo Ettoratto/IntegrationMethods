@@ -78,7 +78,7 @@ function calc() {
 
 /**
  * Calcola l'integrale utilizzando la regola dei rettangoli.
- * @param {number} dX - La larghezza di ciascun rettangolo
+ * @param {number} dX - La base di ciascun rettangolo
  * @returns {string} Il valore integrale calcolato
  */
 function rectRule(dX) {
@@ -95,7 +95,7 @@ function rectRule(dX) {
 
 /**
  * Calcola l'integrale utilizzando la regola dei trapezi.
- * @param {number} dX - La larghezza di ciascun trapezio
+ * @param {number} dX - La base di ciascun trapezio
  * @returns {string} Il valore integrale calcolato
  */
 function trapRule(dX) {
