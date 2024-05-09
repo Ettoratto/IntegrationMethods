@@ -34,7 +34,9 @@ const checkLimits = () => {
     a = document.getElementById("a")
     b = document.getElementById("b")
     if(a.value >= b.value && b.value != "")
-        a.value = b.value - 1
+        tmp = a.value
+        a.value = b.value
+        b.value = tmp
 }
 
 /**
